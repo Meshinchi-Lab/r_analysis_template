@@ -61,9 +61,7 @@ please see attached list of the samples we sequenced with the following info:
 # Unsupervised Clustering
 
 
-
 # Perform Differential Expression
-
 
 
 # QC Plots 
