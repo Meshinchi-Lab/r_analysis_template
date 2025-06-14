@@ -13,5 +13,22 @@ OUTDIR="$(date +%Y-%m-%d)_${DATATYPE}_${DESCRIPTION}"
 
 mkdir $OUTDIR
 cd $OUTDIR
+# use the defaults when prompted
 quarto use template Meshinchi-Lab/analysis_template
+```
+
+You will see the following output:
+> Downloading [###################################] 0.0
+> [✓] Downloading
+>  [✓] Unzipping
+> Preparing template files...
+> [✓] Copying files...
+> Files created:
+> - 2025-06-13_RNAseq_T-ALL_fusions.qmd
+
+The `2025-06-13_RNAseq_T-ALL_fusions.qmd` will be the EDA report. You can rename it if you want.
+You can now open the `.qmd` file in your favorite text editor and start editing it. When you are ready to render the HTML report, run:
+
+```bash
+quarto render 2025-06-13_RNAseq_T-ALL_fusions.qmd
 ```
