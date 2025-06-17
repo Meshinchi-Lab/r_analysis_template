@@ -7,10 +7,11 @@ format: html
 
 # Set-up 
 
-```{r setup, cache = FALSE, include = FALSE}
+```{r setup, cache = FALSE}
 require(renv)
 require(knitr)
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+renv::restore()
 ```
 
 ```{r}
@@ -25,9 +26,6 @@ table = function (..., useNA = 'ifany') base::table(..., useNA = useNA)
 
 ```{r message = FALSE, warning=FALSE}
 library(tidyverse)
-library(lubridate)
-library(magrittr)
-library(usethis)
 library(ggplot2)
 
 getwd()
