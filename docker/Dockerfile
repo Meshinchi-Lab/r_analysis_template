@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
-LABEL org.opencontainers.image.authors="jennyl.smith12@gmail.com"
+LABEL org.opencontainers.image.authors="jennyl.smith12@protonmail.com"
 
 # software versions for project dependencies 
 ENV PY_VERSION='3.12'
@@ -7,7 +7,7 @@ ENV PY_VERSION='3.12'
 ENV QUARTO_VER='1.7.13'
 ENV QUARTO_ARCH='arm64'
 
-ENV R_VERSION='4.1.2-1ubuntu2'
+ENV R_VERSION='4.3.3-2build2'
 ENV RENV_VER='1.0.11'
 
 # location for dependencies
@@ -26,11 +26,11 @@ RUN apt-get -y install --no-install-recommends \
     software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get -y install python${PY_VERSION} python${PY_VERSION}-venv
-RUN cd /usr/bin && ln -sf python3.12 python3 && python3 --version
+RUN cd /usr/bin && ln -sf python${PY_VERSION} python3 && python3 --version
 
 # install R
 RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-RUN apt install r-base r-base-dev -y && R --version
+RUN apt install -y r-base=${R_VERSION} r-base-dev=${R_VERSION} && R --version
 
 # install quarto
 RUN wget -q -P $DIR https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VER}/quarto-${QUARTO_VER}-linux-${QUARTO_ARCH}.tar.gz && tar -xzf $DIR/quarto-${QUARTO_VER}-linux-${QUARTO_ARCH}.tar.gz -C $DIR
