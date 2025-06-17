@@ -1,2 +1,3 @@
 project:
-  type: analysis_template
+  type: default
+  pre-render:  Rscript -e "renv::restore()"
