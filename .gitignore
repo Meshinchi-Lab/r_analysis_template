@@ -7,9 +7,3 @@
 *.html
 *_files/
 
-# project specific
-
-data/
-00_archive/
-
-/.quarto/
