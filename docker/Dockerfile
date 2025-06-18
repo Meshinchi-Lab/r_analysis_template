@@ -18,6 +18,11 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     libssl-dev libreadline-dev libffi-dev \
     wget xorg openbox git gh
 
+# install Rmarkdown dependencies
+RUN apt-get -y install libcurl4-openssl-dev \
+    libfontconfig1-dev libfreetype6-dev libicu-dev \
+    libx11-dev libxml2-dev pandoc
+    
 # install python and venv
 RUN apt-get -y install --no-install-recommends \
     software-properties-common && \
