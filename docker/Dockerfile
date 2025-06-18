@@ -21,6 +21,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # install Rmarkdown dependencies
 RUN apt-get -y install libcurl4-openssl-dev \
     libfontconfig1-dev libfreetype6-dev libicu-dev \
+    libharfbuzz-dev libfribidi-dev \
+    libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
     libx11-dev libxml2-dev pandoc
     
 # install python and venv
