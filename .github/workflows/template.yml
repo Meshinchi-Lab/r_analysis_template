@@ -21,9 +21,6 @@ jobs:
   first-time-setup:
     runs-on: ubuntu-latest
 
-    # Ensure is is only run once, when the repository is generated, with a check to ensure it's the main branch
-    if: github.run_number == 1 && github.ref == 'refs/heads/main'
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
