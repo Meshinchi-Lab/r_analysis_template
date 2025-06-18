@@ -1,2 +1,2 @@
-export-ignore template.qmd
-export-ignore analysis_template.Rproj
+./template.qmd export-ignore
+./analysis_template.Rproj export-ignore
