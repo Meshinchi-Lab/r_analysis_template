@@ -7,6 +7,8 @@ on:
   # Trigger when a repository is generated from a template using GitHub UI or gh CLI
   repository_dispatch:
     types: [template-generated]
+  # push:
+  #   - main
 
 # Only keep latest run of this workflow and cancel any previous runs
 concurrency:
@@ -20,12 +22,15 @@ permissions:
   
 jobs:
   first-time-setup:
+    # if: contains(github.event.head_commit.message, 'Initial commit')
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      - name: Examine the event
+        run: |
+          echo the triggering event is: ${{ github.event }}
       - name: Remove files in export-ignore
         run: |
           # Read the .gitattributes file line by line
