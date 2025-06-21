@@ -4,8 +4,9 @@
 name: Configure template repository
 
 on:
-  # Run when branch is created (when the repository is generated from the template)
-  create:
+  # Trigger when a repository is generated from a template using GitHub UI or gh CLI
+  repository_dispatch:
+    types: [template-generated]
 
 # Only keep latest run of this workflow and cancel any previous runs
 concurrency:
@@ -24,6 +25,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: create repository dispatch
+        run: |
+           gh api repos/Meshinchi-Lab/analysis_template/dispatches -f event_type=template-generated -H "Authorization: token <YOUR_TOKEN>"
 
       - name: Remove files in export-ignore
         run: |
