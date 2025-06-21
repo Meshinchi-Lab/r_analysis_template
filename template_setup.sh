@@ -16,7 +16,7 @@ gh api repos/$REPO/dispatches -f "event_type=template-generated" &
 # # wait for it to finish
 # wait $CMD_PID
 
-wait 10s
+sleep 10s
 
 # list the gh actions run
 gh run list --status success --json status
