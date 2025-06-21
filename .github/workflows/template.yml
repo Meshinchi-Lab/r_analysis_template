@@ -25,16 +25,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GH_PAT }}
-
-      - name: create repository dispatch
-        run: |
-           gh api repos/Meshinchi-Lab/analysis_template/dispatches -f event_type=template-generated -H "Authorization: token <YOUR_TOKEN>"
 
       - name: Remove files in export-ignore
         run: |
-          git status
           # Read the .gitattributes file line by line
           while IFS= read -r line; do
               # Check if the line contains 'export-ignore'
@@ -52,5 +45,4 @@ jobs:
           git add .
           git commit -m "Configure template repository"
           git push
-          git status
-          git log --oneline 
+
