@@ -7,8 +7,9 @@ on:
   # Trigger when a repository is generated from a template using GitHub UI or gh CLI
   repository_dispatch:
     types: [template-generated]
-  # push:
-  #   - main
+  push:
+    branches:
+      - main
 
 # Only keep latest run of this workflow and cancel any previous runs
 concurrency:
@@ -30,24 +31,27 @@ jobs:
         uses: actions/checkout@v3
       - name: Examine the event
         run: |
-          echo the triggering event is: ${{ github.event }}
-      - name: Remove files in export-ignore
-        run: |
-          # Read the .gitattributes file line by line
-          while IFS= read -r line; do
-              # Check if the line contains 'export-ignore'
-              if [[ $line == *"export-ignore"* ]]; then
-                  # Extract the path from the line
-                  path=$(echo "$line" | awk '{print $1}')
-                  rm -rf "$path"
-              fi
-          done < ".gitattributes"
+          echo the triggering event is: ${{ github.event_name }}
+          echo  echo "Commit Message: ${{ github.event.head_commit.message }}"
+          echo "Event JSON:"
+          cat "$GITHUB_EVENT_PATH"
+      # - name: Remove files in export-ignore
+      #   run: |
+      #     # Read the .gitattributes file line by line
+      #     while IFS= read -r line; do
+      #         # Check if the line contains 'export-ignore'
+      #         if [[ $line == *"export-ignore"* ]]; then
+      #             # Extract the path from the line
+      #             path=$(echo "$line" | awk '{print $1}')
+      #             rm -rf "$path"
+      #         fi
+      #     done < ".gitattributes"
 
-      - name: Commit changed files
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Configure template repository"
-          git push
+      # - name: Commit changed files
+      #   run: |
+      #     git config --global user.name "GitHub Actions"
+      #     git config --global user.email "actions@github.com"
+      #     git add .
+      #     git commit -m "Configure template repository"
+      #     git push
 
