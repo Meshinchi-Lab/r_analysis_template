@@ -1,0 +1,5 @@
+./_quarto.yml
+./docker/Dockerfile
+./renv.lock
+./renv/*
+./template_setup.sh
