@@ -24,7 +24,8 @@ permissions:
   
 jobs:
   first-time-setup:
-    if: contains(github.event.head_commit.message, 'Initial commit')
+    # if: contains(github.event.head_commit.message, 'Initial commit')
+    if: github.event.head_commit.message == 'Initial commit'
     runs-on: ubuntu-latest
 
     steps:
