@@ -24,13 +24,16 @@ permissions:
   contents: write
 
 env:
-  template: ${{ vars.TEMPLATE_TYPE }}
+  repo-template: ${{ vars.TEMPLATE_TYPE }}
+  env-template: ${{ vars.TEMPLATE }}
 
 jobs:
   first-time-setup:
     # if: contains(github.event.head_commit.message, 'Initial commit')
     # if: github.event.head_commit.message == 'Initial commit'
     runs-on: ubuntu-latest
+    environment:
+      name: dev
 
     steps:
       - name: Checkout code
@@ -44,8 +47,8 @@ jobs:
       
       - name: Examine the env context
         run: |
-          echo "github env file:"
-          echo  the template type will be: "${{ env.template }}"
+          echo the repo variable is: "${{ env.repo-template }}"
+          echo the env variable is: "${{ env.env-template }}"
       
       - name: Remove files in export-ignore
         run: |
