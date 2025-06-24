@@ -35,8 +35,9 @@ jobs:
       - name: Examine the event
         run: |
           echo the triggering event is: ${{ github.event_name }}
-          echo  echo "Commit Message: ${{ github.event.head_commit.message }}"
-          echo  echo "Ref: ${{ github.ref }}"
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
+          echo "Ref: ${{ github.ref }}"
+          cat "$GITHUB_EVENT_PATH"
       
       - name: Examine the env context
         run: |
