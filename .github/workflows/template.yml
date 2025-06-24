@@ -24,8 +24,7 @@ permissions:
   contents: write
 
 env:
-  repo-template: ${{ vars.TEMPLATE_TYPE }}
-  env-template: ${{ vars.TEMPLATE }}
+  template: ${{ vars.TEMPLATE_TYPE }}
 
 jobs:
   first-time-setup:
@@ -47,8 +46,7 @@ jobs:
       
       - name: Examine the env context
         run: |
-          echo the repo variable is: "${{ env.repo-template }}"
-          echo the env variable is: "${{ env.env-template }}"
+          echo the env variable is: "${{ env.template }}"
       
       - name: Remove files in export-ignore
         run: |
