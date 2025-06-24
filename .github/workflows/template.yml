@@ -22,7 +22,10 @@ permissions:
   actions: write
   checks: write
   contents: write
-  
+
+env:
+  template: ${{ vars.TEMPLATE_TYPE }}
+
 jobs:
   first-time-setup:
     # if: contains(github.event.head_commit.message, 'Initial commit')
@@ -42,7 +45,7 @@ jobs:
       - name: Examine the env context
         run: |
           echo "github env file:"
-          cat "$GITHUB_ENV"
+          echo  the template type will be: "${{ env.template }}"
       
       - name: Remove files in export-ignore
         run: |
