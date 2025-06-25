@@ -24,9 +24,15 @@ table = function (..., useNA = 'ifany') base::table(..., useNA = useNA)
 ```
 
 ```{r message = FALSE, warning=FALSE}
+# libraries for data analysis
 library(tidyverse)
 library(ggplot2)
+
+# libraries for knitting qmd
 library(downlit)
+library(formatR)
+
+# confirm working directory
 getwd()
 ```
 
