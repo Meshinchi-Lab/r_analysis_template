@@ -5,7 +5,12 @@
       {
         "Name": "CRAN",
         "URL": "https://cloud.r-project.org"
+      },
+      {
+        "Name": "R-Forge",
+        "URL": "https://R-Forge.R-project.org"
       }
+
     ]
   },
   "Packages": {
