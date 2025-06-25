@@ -16,7 +16,8 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=50),
                       tidy=TRUE,
                       fig.align='center',
-                      fig.width = 10, fig.height = 10)
+                      fig.width = 10, 
+                      fig.height = 10)
 
 options(stringsAsFactors = FALSE)
 table = function (..., useNA = 'ifany') base::table(..., useNA = useNA)
@@ -25,7 +26,7 @@ table = function (..., useNA = 'ifany') base::table(..., useNA = useNA)
 ```{r message = FALSE, warning=FALSE}
 library(tidyverse)
 library(ggplot2)
-
+library(downlit)
 getwd()
 ```
 
