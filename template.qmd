@@ -3,6 +3,8 @@ title: ""
 author: ""
 date: "`r Sys.Date()`"
 format: html
+params:
+  extra_path: ""
 ---
 
 # Set-up 
@@ -10,23 +12,28 @@ format: html
 ```{r setup, cache = FALSE}
 require(knitr)
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
-
-```{r}
-knitr::opts_chunk$set(tidy.opts=list(width.cutoff=50),
-                      tidy=TRUE,
-                      fig.align='center',
-                      fig.width = 10, 
-                      fig.height = 10)
-
-options(stringsAsFactors = FALSE)
 table = function (..., useNA = 'ifany') base::table(..., useNA = useNA)
+
+# Use extra path for R packages already installed
+if (length(params$extra_path) != 0){
+  .libPaths(c(params$extra_path,.libPaths()))
+}
 ```
 
 ```{r message = FALSE, warning=FALSE}
 # libraries for data analysis
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(lubridate)
+library(magrittr)
+library(janitor)
+library(purrr)
+library(stringr)
+
+# For data viz
 library(ggplot2)
+library(patchwork)
 
 # libraries for knitting qmd
 library(downlit)
@@ -35,6 +42,40 @@ library(formatR)
 # confirm working directory
 getwd()
 ```
+## R and Rmarkdown Style Guide 
+
+1) Blank slate 
+
+Always restart your Rstudio session at least once per day to ensure that your code is not missing any variables or code chunks. 
+
+https://rstats.wtf/source-and-blank-slates#always-start-r-with-a-blank-slate 
+
+https://rstats.wtf/source-and-blank-slates#restart-r-often-during-development 
+
+2) Save Large and Important Objects 
+
+ 
+Always save Save Large and Important Objects, as well as intermediate results if it takes a long time to generate. 
+
+Be sure to name it appropriately or add a README or note in your Rmd/qmd about that specific object. 
+
+https://rstats.wtf/source-and-blank-slates#objects-that-take-a-long-time-to-create 
+
+
+3) RStudio R Projects 
+
+Use Rprojects for all data analyses with Rmarkdown and quarto.
+
+https://rstats.wtf/projects#rstudio-projects 
+
+
+4) File Naming 
+
+Ensure all filenames as outputs follow these guidelines.
+
+https://speakerdeck.com/jennybc/how-to-name-files 
+
+  
 
 # Background
 
@@ -52,11 +93,52 @@ please see attached list of the samples we sequenced with the following info:
 
 - Bambino Gesù Children's Hospital
 
+# Define Data and File Locations
+
+```{r}
+#| eval: true
+#| 
+# processed with rnaseq_count_nf/ pipeline 
+# data outputs saved in lab shared storage
+INPUT <- file.path("/mnt/network_drives/storage-bioinfo_labq")
+
+if(!dir.exists("data/")){
+  dir.create("data/", recursive = TRUE)
+  link_command <- system(glue::glue("ln -f -s {INPUT} data/"))
+}
+```
+
+```{r}
+# point to symlinked directory that contains the results of a workflow
+DATA <- file.path("data/")
+dir(DATA)
+```
+
+```{r}
+# create an informative prefix for all files that are generated in the analysis notebook here. 
+# Checkout the ## R and Rmarkdown Style Guide section above for more details. 
+PREFIX <- "2025.00.00_XXXX"
+```
+
+```{r}
+# filepath for sample metadata and sequencing run logs 
+metadata_path <- glue:::glue("{DATA}/metadata")
+```
+
+
 # Clinical Data
 
 
 # Sample Metadata
 
+```{r}
+# initial metadata files
+metadata <- file.path(metadata_path, glue::glue("{PREFIX}")) %>%
+  janitor::clean_names()
+
+# cleaned metadatafiles
+meta_out <- file.path(metadata_path,glue::glue("{PREFIX}_sample_annots.tsv"))
+```
 
 # Quality Control 
 

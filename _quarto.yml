@@ -1,6 +1,19 @@
 project:
   type: default
-  pre-render:  Rscript -e "renv::activate(); renv::restore()"
+  #pre-render:  Rscript -e "renv::activate(); renv::restore()"
+
+knitr:
+  opts_chunk:
+    fig.align: 'center'
+    tidy: TRUE
+    fig.width: 7
+    fig.height: 5
+    R.options:
+      stringsAsFactors: FALSE
+
+editor: 
+  markdown: 
+    wrap: 72
 
 cache: true
 
@@ -21,6 +34,7 @@ format:
     linestretch: 1.5
     smooth-scroll: true
     email-obfuscation: javascript
+    embed-resources: true
 
     
 
